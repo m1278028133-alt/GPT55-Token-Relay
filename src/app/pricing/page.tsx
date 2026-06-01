@@ -1,5 +1,6 @@
 import { Nav } from "@/components/nav";
 import { rechargePlans } from "@/lib/plans";
+import { PaypalButton } from "./paypal-buttons";
 
 export default function PricingPage() {
   return (
@@ -15,7 +16,7 @@ export default function PricingPage() {
               <div className="mt-3 text-3xl font-semibold">${plan.amountUsd}</div>
               <div className="mt-2 text-sm text-slate-600">{(plan.tokens / 1_000_000).toLocaleString()}M tokens</div>
               <div className="mt-5 grid gap-2">
-                <button className="rounded border border-line px-3 py-2 text-sm font-medium">PayPal</button>
+                <PaypalButton amountUsd={plan.amountUsd} />
                 <button className="rounded border border-line px-3 py-2 text-sm font-medium">Stripe</button>
                 <button className="rounded border border-line px-3 py-2 text-sm font-medium">Coinbase</button>
               </div>

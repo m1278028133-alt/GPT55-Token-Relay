@@ -26,6 +26,8 @@ export const env = {
   paypalClientId: readEnv("PAYPAL_CLIENT_ID"),
   paypalClientSecret: readEnv("PAYPAL_CLIENT_SECRET"),
   paypalWebhookId: readEnv("PAYPAL_WEBHOOK_ID"),
+  paypalEnv: readEnv("PAYPAL_ENV", "sandbox"),
+  appUrl: readEnv("NEXT_PUBLIC_APP_URL", "http://localhost:3000"),
   stripeSecretKey: readEnv("STRIPE_SECRET_KEY"),
   stripeWebhookSecret: readEnv("STRIPE_WEBHOOK_SECRET"),
   coinbaseApiKey: readEnv("COINBASE_API_KEY"),

@@ -6,6 +6,10 @@ import { creditTokens } from "./billing";
 import { supabaseAdmin } from "./supabase-admin";
 import { maybeAutoRechargeCxzweb } from "./cxzweb-recharge";
 
+export function paypalApiBaseUrl() {
+  return env.paypalEnv === "live" ? "https://api-m.paypal.com" : "https://api-m.sandbox.paypal.com";
+}
+
 export function tokensForAmount(amountUsd: number) {
   const exact = rechargePlans.find((plan) => plan.amountUsd === amountUsd);
   if (exact) return exact.tokens;
@@ -69,7 +73,7 @@ export async function verifyPaypalWebhook(req: Request, body: unknown) {
     webhook_id: env.paypalWebhookId,
     webhook_event: body
   };
-  const resp = await fetch("https://api-m.paypal.com/v1/notifications/verify-webhook-signature", {
+  const resp = await fetch(`${paypalApiBaseUrl()}/v1/notifications/verify-webhook-signature`, {
     method: "POST",
     headers: {
       Authorization: `Bearer ${accessToken}`,
@@ -83,7 +87,7 @@ export async function verifyPaypalWebhook(req: Request, body: unknown) {
 
 async function getPaypalAccessToken() {
   const basic = Buffer.from(`${env.paypalClientId}:${env.paypalClientSecret}`).toString("base64");
-  const resp = await fetch("https://api-m.paypal.com/v1/oauth2/token", {
+  const resp = await fetch(`${paypalApiBaseUrl()}/v1/oauth2/token`, {
     method: "POST",
     headers: {
       Authorization: `Basic ${basic}`,
