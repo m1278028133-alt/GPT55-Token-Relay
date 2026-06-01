@@ -3,18 +3,18 @@ import { Stat } from "@/components/stat";
 
 const upstreams = [
   {
-    name: "阿里云百炼",
-    model: "qwen3.5 -> qwen3.6-plus",
-    status: "正常",
-    detail: "当前主上游，使用 100 万 tokens 免费额度",
+    name: "Primary gateway",
+    model: "gpt-5.5",
+    status: "Ready",
+    detail: "OpenAI-compatible requests are routed after prepaid balance checks.",
     tone: "text-mint"
   },
   {
-    name: "cxzweb",
-    model: "gpt-5.5",
-    status: "无额度",
-    detail: "API Key 已配置，等待 V2EX 评论赠送额度到账",
-    tone: "text-amber"
+    name: "Billing",
+    model: "PayPal checkout",
+    status: "Active",
+    detail: "Successful PayPal orders are credited automatically through webhook confirmation.",
+    tone: "text-mint"
   }
 ];
 
@@ -26,7 +26,7 @@ export default function DashboardPage() {
         <div className="flex flex-wrap items-end justify-between gap-3">
           <div>
             <h1 className="text-2xl font-semibold">Dashboard</h1>
-            <p className="mt-1 text-sm text-slate-600">余额、用量、API Key、充值入口和当前上游状态。</p>
+            <p className="mt-1 text-sm text-slate-600">Manage API keys, prepaid balance, usage, and recharge access.</p>
           </div>
           <a href="/pricing" className="rounded bg-cobalt px-4 py-2 text-sm font-semibold text-white focus-ring">
             Recharge
@@ -40,26 +40,19 @@ export default function DashboardPage() {
         </div>
         <div className="mt-8 grid gap-6 lg:grid-cols-2">
           <section className="rounded-lg border border-line bg-white p-5">
-            <h2 className="text-base font-semibold">Available models</h2>
-            <div className="mt-4 grid gap-3">
-              <div className="rounded border border-line p-3">
-                <div className="flex items-center justify-between gap-3">
-                  <span className="font-medium">qwen3.5</span>
-                  <span className="rounded bg-emerald-50 px-2 py-1 text-xs font-semibold text-mint">可用</span>
-                </div>
-                <p className="mt-2 text-sm text-slate-600">当前调用阿里云百炼 qwen3.6-plus。</p>
+            <h2 className="text-base font-semibold">Available model</h2>
+            <div className="mt-4 rounded border border-line p-3">
+              <div className="flex items-center justify-between gap-3">
+                <span className="font-medium">gpt-5.5</span>
+                <span className="rounded bg-emerald-50 px-2 py-1 text-xs font-semibold text-mint">Available</span>
               </div>
-              <div className="rounded border border-line p-3">
-                <div className="flex items-center justify-between gap-3">
-                  <span className="font-medium">gpt-5.5</span>
-                  <span className="rounded bg-amber-50 px-2 py-1 text-xs font-semibold text-amber">暂不可用</span>
-                </div>
-                <p className="mt-2 text-sm text-slate-600">cxzweb 有额度后自动开放；无额度时 API 返回上游暂不可用。</p>
-              </div>
+              <p className="mt-2 text-sm text-slate-600">
+                Use the OpenAI-compatible chat completions endpoint with your GPTX API key.
+              </p>
             </div>
           </section>
           <section className="rounded-lg border border-line bg-white p-5">
-            <h2 className="text-base font-semibold">Upstream status</h2>
+            <h2 className="text-base font-semibold">Service status</h2>
             <div className="mt-4 grid gap-3">
               {upstreams.map((upstream) => (
                 <div key={upstream.name} className="rounded border border-line p-3">

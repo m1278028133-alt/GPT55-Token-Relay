@@ -2,13 +2,13 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "GPT-5.5 Token Relay",
-  description: "Prepaid API relay with automated balance checks and payment webhooks."
+  title: "GPTX API",
+  description: "Prepaid GPT-5.5 API access with PayPal checkout and OpenAI-compatible endpoints."
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="zh-CN">
+    <html lang="en">
       <body>{children}</body>
     </html>
   );

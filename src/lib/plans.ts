@@ -1,9 +1,7 @@
 export const TOKEN_PRICE_USD_PER_MILLION = 1;
 
 export const rechargePlans = [
-  { amountUsd: 5, tokens: 6_000_000, label: "Starter" },
-  { amountUsd: 10, tokens: 12_000_000, label: "Recommended" },
-  { amountUsd: 20, tokens: 25_000_000, label: "Scale" },
-  { amountUsd: 50, tokens: 65_000_000, label: "Team" },
-  { amountUsd: 100, tokens: 140_000_000, label: "Bulk" }
+  { amountUsd: 10, tokens: 1_000_000_000, label: "Starter" },
+  { amountUsd: 20, tokens: 2_000_000_000, label: "Pro" },
+  { amountUsd: 50, tokens: 5_000_000_000, label: "Scale" }
 ];

@@ -9,7 +9,7 @@ export function PaypalButton({ amountUsd }: { amountUsd: number }) {
   async function startCheckout() {
     const token = window.localStorage.getItem("user_token");
     if (!token) {
-      setStatus("Sign in first, then paste your session token into localStorage as user_token.");
+      setStatus("Sign in before checkout.");
       return;
     }
 
@@ -39,12 +39,12 @@ export function PaypalButton({ amountUsd }: { amountUsd: number }) {
   return (
     <div className="grid gap-1">
       <button
-        className="rounded border border-line px-3 py-2 text-sm font-medium hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-60"
+        className="w-full rounded bg-cobalt px-3 py-2 text-sm font-semibold text-white hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60"
         type="button"
         onClick={startCheckout}
         disabled={loading}
       >
-        {loading ? "Opening PayPal..." : "PayPal"}
+        {loading ? "Opening PayPal..." : "Buy with PayPal"}
       </button>
       {status ? <p className="text-xs text-slate-500">{status}</p> : null}
     </div>

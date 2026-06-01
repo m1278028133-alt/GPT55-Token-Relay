@@ -1,5 +1,5 @@
 import { env } from "@/lib/env";
-import { json } from "@/lib/http";
+import { error, json } from "@/lib/http";
 import { paypalApiBaseUrl } from "@/lib/payments";
 
 export const dynamic = "force-dynamic";
@@ -12,14 +12,21 @@ function fingerprint(value: string) {
   };
 }
 
-export async function GET() {
+export async function GET(req: Request) {
+  const expectedToken = process.env.ADMIN_BEARER_TOKEN?.trim();
+  const providedToken = req.headers.get("authorization")?.replace(/^Bearer\s+/i, "").trim();
+  if (expectedToken && providedToken !== expectedToken) {
+    return error("Admin token required.", "UNAUTHORIZED", 401);
+  }
+
   const result: Record<string, unknown> = {
     paypal_env: env.paypalEnv,
     paypal_base_url: paypalApiBaseUrl(),
     client_id: fingerprint(env.paypalClientId),
     client_secret: fingerprint(env.paypalClientSecret),
     webhook_id: fingerprint(env.paypalWebhookId),
-    app_url: env.appUrl
+    app_url: env.appUrl,
+    deployment_id: process.env.VERCEL_DEPLOYMENT_ID ?? null
   };
 
   try {
