@@ -22,7 +22,10 @@ export function PaypalButton({ amountUsd }: { amountUsd: number }) {
         body: JSON.stringify({ amount_usd: amountUsd })
       });
       const data = await resp.json();
-      if (!resp.ok) throw new Error(data.error?.message ?? "PayPal order failed.");
+      if (!resp.ok) {
+        const detail = data.error?.details?.error_description ?? data.error?.details?.message ?? data.error?.details?.name;
+        throw new Error([data.error?.message ?? "PayPal order failed.", detail].filter(Boolean).join(" "));
+      }
 
       const approveUrl = data.links?.find((link: { rel: string; href: string }) => link.rel === "approve")?.href;
       if (!approveUrl) throw new Error("PayPal did not return an approval URL.");
