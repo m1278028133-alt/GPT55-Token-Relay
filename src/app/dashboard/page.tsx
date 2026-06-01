@@ -4,7 +4,7 @@ import { Stat } from "@/components/stat";
 const upstreams = [
   {
     name: "阿里云百炼",
-    model: "qwen3.5 -> qwen3.5-coder-480b",
+    model: "qwen3.5 -> qwen3.6-plus",
     status: "正常",
     detail: "当前主上游，使用 100 万 tokens 免费额度",
     tone: "text-mint"
@@ -47,7 +47,7 @@ export default function DashboardPage() {
                   <span className="font-medium">qwen3.5</span>
                   <span className="rounded bg-emerald-50 px-2 py-1 text-xs font-semibold text-mint">可用</span>
                 </div>
-                <p className="mt-2 text-sm text-slate-600">当前调用阿里云百炼 qwen3.5-coder-480b。</p>
+                <p className="mt-2 text-sm text-slate-600">当前调用阿里云百炼 qwen3.6-plus。</p>
               </div>
               <div className="rounded border border-line p-3">
                 <div className="flex items-center justify-between gap-3">

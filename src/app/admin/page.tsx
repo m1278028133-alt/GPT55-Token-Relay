@@ -41,7 +41,7 @@ export default function AdminPage() {
                   <span className="font-medium">Aliyun Bailian</span>
                   <span className="font-semibold text-mint">Primary / Normal</span>
                 </div>
-                <p className="mt-1 text-slate-600">qwen3.5 maps to qwen3.5-coder-480b. Warning threshold: 100k tokens.</p>
+                <p className="mt-1 text-slate-600">qwen3.5 maps to qwen3.6-plus. Warning threshold: 100k tokens.</p>
               </div>
               <div className="rounded border border-line p-3">
                 <div className="flex items-center justify-between gap-3">

@@ -37,8 +37,9 @@ const baseProviders: Provider[] = [
     priority: 1,
     balanceTokens: 1_000_000,
     modelMap: {
-      "qwen3.5": "qwen3.5-coder-480b",
-      "qwen3.5-coder-480b": "qwen3.5-coder-480b",
+      "qwen3.5": "qwen3.6-plus",
+      "qwen3.6-plus": "qwen3.6-plus",
+      "qwen3.7-max": "qwen3.7-max",
       "qwen-turbo": "qwen-turbo",
       "qwen-max": "qwen-max"
     }

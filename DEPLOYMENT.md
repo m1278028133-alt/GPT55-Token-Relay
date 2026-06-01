@@ -26,7 +26,7 @@
 
 当前上游状态：
 
-- 阿里云百炼：当前主上游，`qwen3.5` 可用，有 100 万 tokens 免费额度
+- 阿里云百炼：当前主上游，`qwen3.5` 映射到 `qwen3.6-plus`，有 100 万 tokens 免费额度
 - cxzweb：API Key 已获取，但暂时无额度，等待 V2EX 评论赠送 17 美元额度
 - No.1-API / freemodel：备用上游，默认关闭
 

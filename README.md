@@ -5,7 +5,7 @@ Next.js 14 + TypeScript + Tailwind CSS + Supabase prepaid API relay. It exposes 
 ## Current Operating Mode
 
 - Primary upstream: Aliyun Bailian.
-- Live model: `qwen3.5`, mapped to `qwen3.5-coder-480b`.
+- Live model: `qwen3.5`, mapped to Aliyun `qwen3.6-plus`.
 - Standby upstream: cxzweb.
 - Standby model: `gpt-5.5`, enabled only after cxzweb credit is available.
 - If `gpt-5.5` is requested while cxzweb has no credit, the API returns `503 MODEL_UNAVAILABLE`.
