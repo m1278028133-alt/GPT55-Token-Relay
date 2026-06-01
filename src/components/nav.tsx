@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 const links = [
-  ["Dashboard", "/dashboard"],
+  ["Console", "/console/token"],
   ["Pricing", "/pricing"],
   ["API Docs", "/docs"],
   ["Contact", "/contact"]
