@@ -1,5 +1,5 @@
 function readEnv(name: string, fallback = "") {
-  return process.env[name] ?? fallback;
+  return (process.env[name] ?? fallback).trim();
 }
 
 export const env = {
