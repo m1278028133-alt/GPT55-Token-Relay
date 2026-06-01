@@ -49,9 +49,10 @@ export default function DocsPage() {
     <main>
       <Nav />
       <section className="mx-auto max-w-6xl px-4 py-8">
-        <h1 className="text-2xl font-semibold">API Docs</h1>
+        <p className="text-sm font-semibold text-cobalt">Developer guide</p>
+        <h1 className="mt-2 text-2xl font-semibold">API Docs</h1>
         <p className="mt-2 text-sm text-slate-600">
-          Use GPTX API as an OpenAI-compatible chat endpoint with prepaid balance checks.
+          This page is the integration tutorial for developers. Use GPTX API as an OpenAI-compatible chat endpoint with prepaid balance checks.
         </p>
         <div className="mt-6 grid gap-5 lg:grid-cols-3">
           {[
