@@ -4,6 +4,7 @@ import { env } from "./env";
 import { rechargePlans } from "./plans";
 import { creditTokens } from "./billing";
 import { supabaseAdmin } from "./supabase-admin";
+import { maybeAutoRechargeCxzweb } from "./cxzweb-recharge";
 
 export function tokensForAmount(amountUsd: number) {
   const exact = rechargePlans.find((plan) => plan.amountUsd === amountUsd);
@@ -47,8 +48,14 @@ export async function completePaymentOnce(input: {
 
   await creditTokens(input.userId, amountTokens);
   await supabaseAdmin.rpc("record_fund_pool_deposit", { p_amount_usd: input.amountUsd });
+  const cxzwebRecharge = await maybeAutoRechargeCxzweb({
+    userId: input.userId,
+    paymentId: payment.id,
+    paymentAmountUsd: input.amountUsd,
+    transactionId: input.transactionId
+  });
 
-  return { credited: true, amountTokens, paymentId: payment.id };
+  return { credited: true, amountTokens, paymentId: payment.id, cxzwebRecharge };
 }
 
 export async function verifyPaypalWebhook(req: Request, body: unknown) {
