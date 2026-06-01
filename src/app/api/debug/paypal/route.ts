@@ -2,6 +2,8 @@ import { env } from "@/lib/env";
 import { json } from "@/lib/http";
 import { paypalApiBaseUrl } from "@/lib/payments";
 
+export const dynamic = "force-dynamic";
+
 function fingerprint(value: string) {
   return {
     present: value.length > 0,
