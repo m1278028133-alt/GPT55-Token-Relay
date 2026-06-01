@@ -27,6 +27,19 @@ create table if not exists public.api_keys (
 create index if not exists api_keys_key_hash_idx on public.api_keys(key_hash);
 create index if not exists api_keys_user_id_idx on public.api_keys(user_id);
 
+create table if not exists public.email_verifications (
+  id uuid primary key default gen_random_uuid(),
+  email text not null,
+  code text not null check (code ~ '^[0-9]{6}$'),
+  type text not null check (type in ('register', 'reset_password')),
+  expires_at timestamptz not null,
+  used boolean not null default false,
+  created_at timestamptz not null default now()
+);
+
+create index if not exists email_verifications_lookup_idx
+on public.email_verifications (email, type, code, used, expires_at desc);
+
 create table if not exists public.token_balances (
   id uuid primary key default gen_random_uuid(),
   user_id uuid unique not null references public.users(id) on delete cascade,

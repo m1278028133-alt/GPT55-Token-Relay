@@ -4,7 +4,8 @@ const links = [
   ["Console", "/console/token"],
   ["Pricing", "/pricing"],
   ["API Docs", "/docs"],
-  ["Contact", "/contact"]
+  ["Contact", "/contact"],
+  ["Login", "/signin"]
 ];
 
 export function Nav() {

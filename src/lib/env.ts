@@ -33,5 +33,7 @@ export const env = {
   coinbaseApiKey: readEnv("COINBASE_API_KEY"),
   coinbaseWebhookSecret: readEnv("COINBASE_WEBHOOK_SECRET"),
   coinbaseApiVersion: readEnv("COINBASE_API_VERSION", "2021-08-05"),
-  adminBearerToken: readEnv("ADMIN_BEARER_TOKEN")
+  adminBearerToken: readEnv("ADMIN_BEARER_TOKEN"),
+  resendApiKey: readEnv("RESEND_API_KEY"),
+  smtpFrom: readEnv("SMTP_FROM", "GPTX API <no-reply@gptxapi.com>")
 };

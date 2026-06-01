@@ -25,7 +25,7 @@ export function SigninForm() {
       if (!resp.ok) throw new Error(data.error?.message ?? "Signin failed.");
 
       window.localStorage.setItem("user_token", data.token);
-      window.location.href = "/dashboard";
+      window.location.href = "/console/token";
     } catch (error) {
       setStatus(error instanceof Error ? error.message : "Signin failed.");
       setLoading(false);
@@ -45,6 +45,10 @@ export function SigninForm() {
       <button className="rounded bg-cobalt px-4 py-2 text-sm font-semibold text-white disabled:opacity-60" type="submit" disabled={loading}>
         {loading ? "Signing in..." : "Sign In"}
       </button>
+      <div className="flex flex-wrap justify-between gap-2 text-sm">
+        <a href="/forgot-password" className="text-cobalt">Forgot Password?</a>
+        <a href="/register" className="text-cobalt">Do not have an account? Register</a>
+      </div>
       {status ? <p className="text-sm text-red-600">{status}</p> : null}
     </form>
   );

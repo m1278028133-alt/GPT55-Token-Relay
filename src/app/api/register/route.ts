@@ -1,33 +1,37 @@
 import { json, error } from "@/lib/http";
-import { supabaseAdmin } from "@/lib/supabase-admin";
 import { normalizeEmail } from "@/lib/email";
 import { consumeVerificationCode } from "@/lib/verification";
+import { supabaseAdmin } from "@/lib/supabase-admin";
 
 export async function POST(req: Request) {
-  const contentType = req.headers.get("content-type") ?? "";
-  const body = contentType.includes("application/json")
-    ? await req.json()
-    : Object.fromEntries((await req.formData()).entries());
-  const { email, password, code } = body;
+  const { email, password, code } = await req.json().catch(() => ({}));
   const normalizedEmail = normalizeEmail(email);
-  if (!normalizedEmail || !password || !code) return error("Email, password, and verification code are required.", "VALIDATION_ERROR", 422);
+  const normalizedPassword = String(password ?? "");
+  if (!normalizedEmail || normalizedPassword.length < 8 || !code) {
+    return error("Email, password, and verification code are required.", "VALIDATION_ERROR", 422);
+  }
 
   const verification = await consumeVerificationCode({ email: normalizedEmail, code: String(code), type: "register" });
   if (!verification.ok) return error(verification.message ?? "Invalid verification code.", "INVALID_CODE", 400);
 
+  const { data: existing } = await supabaseAdmin.auth.admin.listUsers();
+  if (existing.users.some((user) => user.email?.toLowerCase() === normalizedEmail)) {
+    return error("Email is already registered.", "EMAIL_EXISTS", 409);
+  }
+
   const { data, error: authError } = await supabaseAdmin.auth.admin.createUser({
     email: normalizedEmail,
-    password: String(password),
+    password: normalizedPassword,
     email_confirm: true
   });
   if (authError || !data.user) return error(authError?.message ?? "Signup failed.", "SIGNUP_FAILED", 400);
 
-  await supabaseAdmin.from("users").insert({
+  await supabaseAdmin.from("users").upsert({
     id: data.user.id,
     email: normalizedEmail,
     role: "user"
   });
-  await supabaseAdmin.from("token_balances").insert({
+  await supabaseAdmin.from("token_balances").upsert({
     user_id: data.user.id,
     balance: 0
   });
